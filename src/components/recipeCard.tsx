@@ -14,18 +14,19 @@ interface RecipeCardProps {
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
+	const textTruncation = (text: string): string => {
+		return text.length > 100 ? text.substring(0, 97) + "..." : text;
+	};
+
 	return (
 		<Card sx={{ maxWidth: 345 }}>
 			<CardMedia sx={{ height: 140 }} image={defaultImage} title="image" />
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
-					{recipe.title}
+					{textTruncation(recipe.title)}
 				</Typography>
 				<Typography variant="body2" color="text.secondary">
-					{recipe.ingredients}
-				</Typography>
-				<Typography variant="body2" color="text.secondary">
-					{recipe.instructions}
+					{textTruncation(recipe.ingredients)}
 				</Typography>
 			</CardContent>
 			<CardActions>
