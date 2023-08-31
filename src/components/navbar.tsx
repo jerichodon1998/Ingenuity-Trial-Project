@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
 
 	const drawer: JSX.Element = (
 		<Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-			<Link to={"/"}>
+			<Link to={"/"} style={{ textDecoration: "none", color: "#000" }}>
 				<Typography variant="h6" sx={{ my: 2 }}>
 					InguenityProject
 				</Typography>
@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
 							<ListItemText>
 								<Link
 									to={item.toLocaleLowerCase()}
-									style={{ textDecoration: "none" }}
+									style={{ textDecoration: "none", color: "#000" }}
 								>
 									{item}
 								</Link>
