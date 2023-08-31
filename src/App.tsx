@@ -5,6 +5,8 @@ import ErrorPage from "./routes/errorPage";
 import Recipe from "./routes/recipes";
 import User from "./routes/users";
 import Admin from "./routes/admin";
+import Signin from "./routes/signin";
+import Login from "./routes/login";
 
 function App() {
 	const router = createBrowserRouter([
@@ -24,6 +26,14 @@ function App() {
 		{
 			path: "admin/:id",
 			element: <Admin />,
+		},
+		{
+			path: "users/:id",
+			element: <Signin />,
+		},
+		{
+			path: "admin/:id",
+			element: <Login />,
 		},
 	]);
 
