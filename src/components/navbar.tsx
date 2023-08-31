@@ -36,12 +36,14 @@ const Navbar: React.FC = () => {
 				{navItems.map((item) => (
 					<ListItem key={item} disablePadding>
 						<ListItemButton sx={{ textAlign: "center" }}>
-							<Link
-								to={`${item}`}
-								style={{ textDecoration: "none", color: "#fff" }}
-							>
-								<ListItemText primary={item} />
-							</Link>
+							<ListItemText>
+								<Link
+									to={item.toLocaleLowerCase()}
+									style={{ textDecoration: "none" }}
+								>
+									{item}
+								</Link>
+							</ListItemText>
 						</ListItemButton>
 					</ListItem>
 				))}
