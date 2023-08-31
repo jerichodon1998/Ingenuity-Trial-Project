@@ -7,6 +7,7 @@ import User from "./routes/users";
 import Admin from "./routes/admin";
 import Signup from "./routes/signup";
 import Login from "./routes/login";
+import HomePage from "./routes/homePage";
 
 function App() {
 	const router = createBrowserRouter([
@@ -14,30 +15,40 @@ function App() {
 			path: "/",
 			element: <Root />,
 			errorElement: <ErrorPage />,
-		},
-		{
-			path: "recipes/:id",
-			element: <Recipe />,
-		},
-		{
-			path: "users/:id",
-			element: <User />,
-		},
-		{
-			path: "admin/:id",
-			element: <Admin />,
-		},
-		{
-			path: "signup",
-			element: <Signup />,
-		},
-		{
-			path: "login",
-			element: <Login />,
+			children: [
+				{
+					path: "/",
+					element: <HomePage />,
+				},
+				{
+					path: "recipes/:id",
+					element: <Recipe />,
+				},
+				{
+					path: "users/:id",
+					element: <User />,
+				},
+				{
+					path: "admin/:id",
+					element: <Admin />,
+				},
+				{
+					path: "signup",
+					element: <Signup />,
+				},
+				{
+					path: "login",
+					element: <Login />,
+				},
+			],
 		},
 	]);
 
-	return <RouterProvider router={router} />;
+	return (
+		<>
+			<RouterProvider router={router} />
+		</>
+	);
 }
 
 export default App;
