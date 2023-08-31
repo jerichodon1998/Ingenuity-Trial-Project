@@ -19,7 +19,9 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 	};
 
 	return (
-		<Card sx={{ maxWidth: 345 }}>
+		<Card
+			sx={{ width: 345, height: 350, display: "flex", flexDirection: "column" }}
+		>
 			<CardMedia sx={{ height: 140 }} image={defaultImage} title="image" />
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
@@ -29,7 +31,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 					{textTruncation(recipe.ingredients)}
 				</Typography>
 			</CardContent>
-			<CardActions>
+			<CardActions sx={{ marginTop: "auto" }}>
 				<Button size="small">Learn More</Button>
 			</CardActions>
 		</Card>
