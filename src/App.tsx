@@ -5,7 +5,7 @@ import ErrorPage from "./routes/errorPage";
 import Recipe from "./routes/recipes";
 import User from "./routes/users";
 import Admin from "./routes/admin";
-import Signin from "./routes/signin";
+import Signup from "./routes/signup";
 import Login from "./routes/login";
 
 function App() {
@@ -28,11 +28,11 @@ function App() {
 			element: <Admin />,
 		},
 		{
-			path: "users/:id",
-			element: <Signin />,
+			path: "signup",
+			element: <Signup />,
 		},
 		{
-			path: "admin/:id",
+			path: "login",
 			element: <Login />,
 		},
 	]);
