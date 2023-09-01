@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
 						{navItems.map((item) => (
 							<Button variant="outlined" key={item}>
 								<Link
-									to={`${item}`}
+									to={`${item.toLowerCase()}`}
 									style={{ textDecoration: "none", color: "#fff" }}
 								>
 									{item}
