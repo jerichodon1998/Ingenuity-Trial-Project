@@ -1,5 +1,6 @@
 import {
 	Drawer,
+	Divider,
 	Box,
 	Typography,
 	List,
@@ -12,44 +13,103 @@ import {
 	AppBar,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+	getCurrentUser,
+	userLogout,
+} from "../redux/features/authentication/authenticationSlice";
+import NavButton from "./navButton";
+
+interface NavItemsInterface {
+	notSignedIn: string[];
+	signedInUser: string[];
+}
 
 const Navbar: React.FC = () => {
-	const navItems = ["Login", "Signup", "Dashboard"];
+	const dispatch = useAppDispatch();
+	const authState = useAppSelector((state) => state.authentication);
+	const navItems: NavItemsInterface = {
+		notSignedIn: ["Login", "Signup"],
+		signedInUser: ["Dashboard", "Logout"],
+	};
 	const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 	const drawerWidth: number = 240;
+
+	const logout = (): void => {
+		dispatch(userLogout());
+	};
 
 	const handleDrawerToggle = (): void => {
 		setMobileOpen((prevState) => !prevState);
 	};
 
-	const drawer: JSX.Element = (
-		<Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-			<Link to={"/"} style={{ textDecoration: "none", color: "#000" }}>
-				<Typography variant="h6" sx={{ my: 2 }}>
-					InguenityProject
-				</Typography>
-			</Link>
-			{/* <Divider /> */}
-			<List>
-				{navItems.map((item) => (
-					<ListItem key={item} disablePadding>
-						<ListItemButton sx={{ textAlign: "center" }}>
-							<ListItemText>
-								<Link
-									to={item.toLocaleLowerCase()}
-									style={{ textDecoration: "none", color: "#000" }}
-								>
-									{item}
-								</Link>
-							</ListItemText>
-						</ListItemButton>
-					</ListItem>
-				))}
-			</List>
-		</Box>
-	);
+	const renderNavItems = (): JSX.Element => {
+		return (
+			<Box sx={{ display: { xs: "none", sm: "block" } }}>
+				{authState.isLoggedIn ? (
+					<>
+						<NavButton linkTo={`dashboard`} text="Dashboard" />
+						<Button onClick={logout} variant="outlined" sx={{ color: "#fff" }}>
+							Logout
+						</Button>
+					</>
+				) : (
+					<>
+						<NavButton linkTo={`login`} text="Login" />
+						<NavButton linkTo={`signup`} text="signup" />
+					</>
+				)}
+			</Box>
+		);
+	};
+
+	const drawer = (): JSX.Element => {
+		let items: string[] = [];
+		authState.isLoggedIn
+			? (items = navItems.notSignedIn)
+			: (items = navItems.signedInUser);
+
+		return (
+			<Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+				<Link to={"/"} style={{ textDecoration: "none", color: "#000" }}>
+					<Typography variant="h6" sx={{ my: 2 }}>
+						InguenityProject
+					</Typography>
+				</Link>
+				<Divider />
+				<List>
+					{items.map((item) => (
+						<ListItem key={item} disablePadding>
+							<ListItemButton sx={{ textAlign: "center" }}>
+								<ListItemText>
+									<Link
+										to={item.toLocaleLowerCase()}
+										style={{ textDecoration: "none", color: "#000" }}
+									>
+										{item}
+									</Link>
+								</ListItemText>
+							</ListItemButton>
+						</ListItem>
+					))}
+				</List>
+			</Box>
+		);
+	};
+
+	useEffect(() => {
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				// User is signed in, see docs for a list of available properties
+				// https://firebase.google.com/docs/reference/js/auth.user
+				dispatch(getCurrentUser(user));
+			}
+		});
+	}, [dispatch]);
 
 	return (
 		<Box sx={{ display: "flex" }}>
@@ -73,18 +133,7 @@ const Navbar: React.FC = () => {
 							InguenityProject
 						</Link>
 					</Typography>
-					<Box sx={{ display: { xs: "none", sm: "block" } }}>
-						{navItems.map((item) => (
-							<Button variant="outlined" key={item}>
-								<Link
-									to={`${item.toLowerCase()}`}
-									style={{ textDecoration: "none", color: "#fff" }}
-								>
-									{item}
-								</Link>
-							</Button>
-						))}
-					</Box>
+					{renderNavItems()}
 				</Toolbar>
 			</AppBar>
 			<nav>
@@ -103,7 +152,7 @@ const Navbar: React.FC = () => {
 						},
 					}}
 				>
-					{drawer}
+					{drawer()}
 				</Drawer>
 			</nav>
 		</Box>
