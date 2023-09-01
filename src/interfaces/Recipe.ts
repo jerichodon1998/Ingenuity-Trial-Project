@@ -6,4 +6,5 @@ export interface RecipeInterface {
 	createdAt: Timestamp;
 	ingredients: string;
 	instructions: string;
+	owner?: string;
 }
