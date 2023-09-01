@@ -8,6 +8,9 @@ import {
 	Alert,
 } from "@mui/material";
 import { UserCredentialInterface } from "../interfaces/User";
+import { useEffect } from "react";
+import { useAppSelector } from "../redux/app/hooks";
+import { useNavigate } from "react-router-dom";
 
 interface CustomAuthFormProps {
 	text: string;
@@ -26,6 +29,8 @@ const CustomAuthForm: React.FC<CustomAuthFormProps> = ({
 	userCredential,
 	errorMessage,
 }) => {
+	const authState = useAppSelector((state) => state.authentication);
+	const navigate = useNavigate();
 	const renderError = (): JSX.Element | null => {
 		return errorMessage ? (
 			<Grid item>
@@ -33,6 +38,10 @@ const CustomAuthForm: React.FC<CustomAuthFormProps> = ({
 			</Grid>
 		) : null;
 	};
+
+	useEffect(() => {
+		authState.isLoggedIn ? navigate("/") : null;
+	}, [authState.isLoggedIn, navigate]);
 
 	return (
 		<Box padding={{ xs: 10, sm: 10, md: 5, lg: 5 }}>
