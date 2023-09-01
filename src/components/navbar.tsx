@@ -43,7 +43,10 @@ const Navbar: React.FC = () => {
 			<Box sx={{ display: { xs: "none", sm: "block" } }}>
 				{authState.isLoggedIn ? (
 					<>
-						<NavButton linkTo={`dashboard`} text="Dashboard" />
+						<NavButton
+							linkTo={`users/${authState.userData?.uid}`}
+							text="Dashboard"
+						/>
 						<Button onClick={logout} variant="outlined" sx={{ color: "#fff" }}>
 							Logout
 						</Button>
@@ -70,7 +73,10 @@ const Navbar: React.FC = () => {
 				<List>
 					{authState.isLoggedIn ? (
 						<>
-							<NavDrawerItem linkTo={`dashboard`} text="Dashboard" />
+							<NavDrawerItem
+								linkTo={`users/${authState.userData?.uid}`}
+								text="Dashboard"
+							/>
 							<ListItem disablePadding onClick={logout}>
 								<ListItemButton sx={{ textAlign: "center" }}>
 									<ListItemText>Logout</ListItemText>
