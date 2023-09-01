@@ -22,19 +22,11 @@ import {
 	userLogout,
 } from "../redux/features/authentication/authenticationSlice";
 import NavButton from "./navButton";
-
-interface NavItemsInterface {
-	notSignedIn: string[];
-	signedInUser: string[];
-}
+import NavDrawerItem from "./navDrawerItem";
 
 const Navbar: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const authState = useAppSelector((state) => state.authentication);
-	const navItems: NavItemsInterface = {
-		notSignedIn: ["Login", "Signup"],
-		signedInUser: ["Dashboard", "Logout"],
-	};
 	const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 	const drawerWidth: number = 240;
 
@@ -67,11 +59,6 @@ const Navbar: React.FC = () => {
 	};
 
 	const drawer = (): JSX.Element => {
-		let items: string[] = [];
-		authState.isLoggedIn
-			? (items = navItems.notSignedIn)
-			: (items = navItems.signedInUser);
-
 		return (
 			<Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
 				<Link to={"/"} style={{ textDecoration: "none", color: "#000" }}>
@@ -81,20 +68,21 @@ const Navbar: React.FC = () => {
 				</Link>
 				<Divider />
 				<List>
-					{items.map((item) => (
-						<ListItem key={item} disablePadding>
-							<ListItemButton sx={{ textAlign: "center" }}>
-								<ListItemText>
-									<Link
-										to={item.toLocaleLowerCase()}
-										style={{ textDecoration: "none", color: "#000" }}
-									>
-										{item}
-									</Link>
-								</ListItemText>
-							</ListItemButton>
-						</ListItem>
-					))}
+					{authState.isLoggedIn ? (
+						<>
+							<NavDrawerItem linkTo={`dashboard`} text="Dashboard" />
+							<ListItem disablePadding onClick={logout}>
+								<ListItemButton sx={{ textAlign: "center" }}>
+									<ListItemText>Logout</ListItemText>
+								</ListItemButton>
+							</ListItem>
+						</>
+					) : (
+						<>
+							<NavDrawerItem linkTo="login" text="Login" />
+							<NavDrawerItem linkTo="signup" text="Signup" />
+						</>
+					)}
 				</List>
 			</Box>
 		);
