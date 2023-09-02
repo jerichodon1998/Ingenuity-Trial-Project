@@ -44,7 +44,7 @@ const Recipe: React.FC = () => {
 	const renderOptions = (): JSX.Element | null => {
 		if (
 			authState.isLoggedIn &&
-			authState.userData?.uid == recipe?.owner &&
+			(authState.userData?.uid == recipe?.owner || authState.isAdmin) &&
 			recipe
 		) {
 			return (
