@@ -27,10 +27,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 	return (
 		<Card
 			sx={{
-				minWidth: 245,
-				minHeight: 250,
-				maxWidth: 345,
-				maxHeight: 350,
+				width: "auto",
+				height: 350,
 				display: "flex",
 				flexDirection: "column",
 			}}
