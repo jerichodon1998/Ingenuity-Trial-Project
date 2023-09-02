@@ -9,19 +9,14 @@ import {
 } from "@mui/material";
 import { RecipeInterface } from "../interfaces/Recipe";
 import defaultImage from "../assets/defaultImage.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 interface RecipeCardProps {
 	recipe: RecipeInterface;
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
-	const navigate = useNavigate();
 	const textTruncation = (text: string): string => {
 		return text.length > 100 ? text.substring(0, 97) + "..." : text;
-	};
-
-	const pushToRecipePage = (): void => {
-		navigate(`recipes/${recipe.id}`);
 	};
 
 	return (
@@ -43,8 +38,13 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 				</Typography>
 			</CardContent>
 			<CardActions sx={{ marginTop: "auto" }}>
-				<Button onClick={pushToRecipePage} size="small">
-					Learn More
+				<Button size="small">
+					<Link
+						to={`/recipes/${recipe.id}`}
+						style={{ textDecoration: "none", color: "inherit" }}
+					>
+						Learn More
+					</Link>
 				</Button>
 			</CardActions>
 		</Card>
