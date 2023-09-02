@@ -100,6 +100,7 @@ export const authenticationSlice = createSlice({
 			state.isLoading = false;
 			state.userData = null;
 			state.isAdmin = false;
+			state.error = null;
 		},
 		getCurrentUser: (state, action: PayloadAction<User | null>) => {
 			state.isLoggedIn = true;
