@@ -28,15 +28,14 @@ const CreateRecipe: React.FC = () => {
 	): Promise<void> => {
 		e.preventDefault();
 		// add ownerID and createdAt timestamp
-		if (authState?.userData?.uid) {
-			setRecipe({
+		if (authState.userData?.uid) {
+			const newRecipe: CreateRecipeInterface = {
 				...recipe,
 				createdAt: Timestamp.now(),
 				owner: authState.userData.uid,
-			});
-
+			};
 			// add document
-			await addDoc(collection(db, "recipe"), recipe)
+			await addDoc(collection(db, "recipe"), newRecipe)
 				.then(() => {
 					resetValues();
 				})
