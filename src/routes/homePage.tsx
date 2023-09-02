@@ -9,7 +9,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase/firebaseConfig";
 import { RecipeInterface } from "../interfaces/Recipe";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ListCard from "../components/listCard";
 
 const HomePage: React.FC = () => {
@@ -44,8 +44,10 @@ const HomePage: React.FC = () => {
 	}, []);
 
 	return (
-		<Box>
-			<h1>HomePage</h1>
+		<Box padding={{ xs: 5, sm: 5, md: 10, lg: 10 }}>
+			<Typography variant="h2" sx={{ textAlign: "center" }}>
+				HomePage
+			</Typography>
 			{renderRecipes()}
 		</Box>
 	);

@@ -26,7 +26,14 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe }) => {
 
 	return (
 		<Card
-			sx={{ width: 345, height: 350, display: "flex", flexDirection: "column" }}
+			sx={{
+				minWidth: 245,
+				minHeight: 250,
+				maxWidth: 345,
+				maxHeight: 350,
+				display: "flex",
+				flexDirection: "column",
+			}}
 		>
 			<CardMedia sx={{ height: 140 }} image={defaultImage} title="image" />
 			<CardContent>
