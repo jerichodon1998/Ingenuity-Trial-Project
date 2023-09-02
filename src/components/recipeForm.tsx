@@ -32,6 +32,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
 						<InputLabel>Title</InputLabel>
 						<TextField
 							required
+							fullWidth
 							name="title"
 							value={recipe?.title}
 							onChange={onFormChange}
