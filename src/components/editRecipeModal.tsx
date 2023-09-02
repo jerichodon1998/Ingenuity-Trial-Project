@@ -11,28 +11,30 @@ import { useEffect, useState } from "react";
 import { EditRecipeInterface } from "../interfaces/Recipe";
 import { db } from "../firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
+import { useParams } from "react-router-dom";
 
 const EditRecipeModal: React.FC<EditRecipeInterface> = ({
 	ingredients,
 	instructions,
 	title,
-	id,
 }) => {
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 	const [editRecipe, setEditRecipe] = useState<EditRecipeInterface>();
+	const { id } = useParams();
 
-	const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const onFormSubmit = async (
+		e: React.FormEvent<HTMLFormElement>
+	): Promise<void> => {
 		e.preventDefault();
 		// update document
 		const documentRef = doc(db, "recipe/" + id);
 		try {
 			await setDoc(documentRef, editRecipe, { merge: true });
 			handleClose();
-			console.log("Document successfully updated!");
 		} catch (error) {
-			console.error("Error updating document: ", error);
+			alert(error);
 		}
 	};
 
@@ -52,7 +54,7 @@ const EditRecipeModal: React.FC<EditRecipeInterface> = ({
 
 	useEffect(() => {
 		if (ingredients && instructions && title) {
-			setEditRecipe({ ingredients, instructions, title, id });
+			setEditRecipe({ ingredients, instructions, title });
 		}
 	}, [ingredients, instructions, title, id]);
 

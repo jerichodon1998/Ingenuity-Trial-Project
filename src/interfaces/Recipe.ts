@@ -13,5 +13,4 @@ export interface EditRecipeInterface {
 	title: string;
 	ingredients: string;
 	instructions: string;
-	id: string;
 }

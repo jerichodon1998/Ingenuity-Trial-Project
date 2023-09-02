@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RecipeInterface } from "../interfaces/Recipe";
-import { onSnapshot, doc, DocumentSnapshot } from "firebase/firestore";
+import {
+	onSnapshot,
+	doc,
+	DocumentSnapshot,
+	deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import {
 	Box,
@@ -21,6 +26,20 @@ const Recipe: React.FC = () => {
 	const { id } = useParams();
 	const [recipe, setRecipe] = useState<RecipeInterface>();
 	const authState = useAppSelector((state) => state.authentication);
+	const navigate = useNavigate();
+
+	const onDeleteRecipe = async (): Promise<void> => {
+		if (confirm("test")) {
+			const documentRef = doc(db, "recipe/" + recipe?.id);
+			try {
+				await deleteDoc(documentRef).then(() => {
+					navigate("/");
+				});
+			} catch (error) {
+				alert(error);
+			}
+		}
+	};
 
 	const renderOptions = (): JSX.Element | null => {
 		if (
@@ -36,11 +55,15 @@ const Recipe: React.FC = () => {
 								ingredients={recipe.ingredients}
 								title={recipe.title}
 								instructions={recipe.instructions}
-								id={recipe.id}
 							/>
 						</Grid>
 						<Grid item>
-							<Button variant="outlined" color="error" size="large">
+							<Button
+								onClick={onDeleteRecipe}
+								variant="outlined"
+								color="error"
+								size="large"
+							>
 								Delete
 								<Delete color="error" fontSize="inherit" />
 							</Button>
