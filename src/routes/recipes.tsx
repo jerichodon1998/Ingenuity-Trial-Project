@@ -3,12 +3,54 @@ import { useParams } from "react-router-dom";
 import { RecipeInterface } from "../interfaces/Recipe";
 import { onSnapshot, doc, DocumentSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
-import { Box, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import {
+	Box,
+	Card,
+	CardMedia,
+	CardContent,
+	Typography,
+	CardActions,
+	Button,
+	Grid,
+} from "@mui/material";
+import { Delete } from "@mui/icons-material";
 import defaultImage from "../assets/defaultImage.jpg";
+import EditRecipeModal from "../components/editRecipeModal";
+import { useAppSelector } from "../redux/app/hooks";
 const Recipe: React.FC = () => {
 	const { id } = useParams();
 	const [recipe, setRecipe] = useState<RecipeInterface>();
-	// const [isLoading, setIsLoading] = useState<boolean>(false);
+	const authState = useAppSelector((state) => state.authentication);
+
+	const renderOptions = (): JSX.Element | null => {
+		if (
+			authState.isLoggedIn &&
+			authState.userData?.uid == recipe?.owner &&
+			recipe
+		) {
+			return (
+				<CardActions sx={{ marginTop: "auto" }}>
+					<Grid container spacing={2}>
+						<Grid item>
+							<EditRecipeModal
+								ingredients={recipe.ingredients}
+								title={recipe.title}
+								instructions={recipe.instructions}
+								id={recipe.id}
+							/>
+						</Grid>
+						<Grid item>
+							<Button variant="outlined" color="error" size="large">
+								Delete
+								<Delete color="error" fontSize="inherit" />
+							</Button>
+						</Grid>
+					</Grid>
+				</CardActions>
+			);
+		}
+		return null;
+	};
 
 	useEffect(() => {
 		const getRecipe = (): void => {
@@ -26,6 +68,7 @@ const Recipe: React.FC = () => {
 						createdAt: docSnapshot.data().createdAt,
 						ingredients: docSnapshot.data().ingredients,
 						instructions: docSnapshot.data().instructions,
+						owner: docSnapshot.data()?.owner,
 					});
 				}
 			});
@@ -34,7 +77,7 @@ const Recipe: React.FC = () => {
 	}, [id]);
 
 	const renderRecipe = (): JSX.Element => {
-		return (
+		return recipe ? (
 			<Card
 				sx={{
 					width: "fill",
@@ -66,13 +109,16 @@ const Recipe: React.FC = () => {
 						{recipe?.instructions}
 					</Typography>
 				</CardContent>
+				{renderOptions()}
 			</Card>
+		) : (
+			<Typography>Recipe doesn't exist or it has been deleted</Typography>
 		);
 	};
 
 	return (
 		<Box flexGrow={1} padding={{ xs: 5, sm: 5, md: 10, lg: 10 }}>
-			{recipe ? renderRecipe() : null}
+			{renderRecipe()}
 		</Box>
 	);
 };
