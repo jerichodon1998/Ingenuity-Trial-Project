@@ -25,7 +25,9 @@ const Root: React.FC = () => {
 					New Recipe
 				</Fab>
 			</Link>
-			<Outlet />
+			<Box padding={{ xs: 5, sm: 5, md: 10, lg: 10 }}>
+				<Outlet />
+			</Box>
 		</Box>
 	);
 };

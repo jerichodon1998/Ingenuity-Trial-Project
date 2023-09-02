@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
 	}, []);
 
 	return (
-		<Box padding={{ xs: 5, sm: 5, md: 10, lg: 10 }}>
+		<Box>
 			<Typography variant="h2" sx={{ textAlign: "center" }}>
 				HomePage
 			</Typography>

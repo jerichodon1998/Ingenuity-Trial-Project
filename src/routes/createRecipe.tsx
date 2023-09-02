@@ -58,7 +58,7 @@ const CreateRecipe: React.FC = () => {
 	};
 
 	return (
-		<Box>
+		<Box sx={{ textAlign: "center" }}>
 			<Typography variant="h2">Create Recipe</Typography>
 			<RecipeForm
 				buttonText="Create"
