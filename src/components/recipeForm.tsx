@@ -1,8 +1,8 @@
 import { Button, FormGroup, Grid, InputLabel, TextField } from "@mui/material";
-import { EditRecipeInterface } from "../interfaces/Recipe";
+import { CreateRecipeInterface } from "../interfaces/Recipe";
 
 interface RecipeFormProps {
-	recipe: EditRecipeInterface;
+	recipe: CreateRecipeInterface;
 	buttonText: string;
 	onFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 	onFormChange: (
@@ -31,12 +31,14 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
 					<Grid item>
 						<InputLabel>Title</InputLabel>
 						<TextField
+							required
 							name="title"
 							value={recipe?.title}
 							onChange={onFormChange}
 						/>
 						<InputLabel>Ingredients</InputLabel>
 						<TextField
+							required
 							name="ingredients"
 							multiline
 							maxRows={10}
@@ -46,6 +48,7 @@ const RecipeForm: React.FC<RecipeFormProps> = ({
 						/>
 						<InputLabel>Instructions</InputLabel>
 						<TextField
+							required
 							name="instructions"
 							multiline
 							maxRows={10}

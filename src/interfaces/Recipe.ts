@@ -9,6 +9,11 @@ export interface RecipeInterface {
 	owner?: string;
 }
 
+export interface CreateRecipeInterface extends EditRecipeInterface {
+	createdAt: Timestamp;
+	owner?: string;
+}
+
 export interface EditRecipeInterface {
 	title: string;
 	ingredients: string;

@@ -8,7 +8,7 @@ import Admin from "./routes/admin";
 import Signup from "./routes/signup";
 import Login from "./routes/login";
 import HomePage from "./routes/homePage";
-import CreateRecipe from "./components/createRecipe";
+import CreateRecipe from "./routes/createRecipe";
 
 function App() {
 	const router = createBrowserRouter([
