@@ -1,17 +1,10 @@
-import {
-	Box,
-	Modal,
-	Button,
-	Grid,
-	TextField,
-	InputLabel,
-	FormGroup,
-} from "@mui/material";
+import { Box, Modal, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { EditRecipeInterface } from "../interfaces/Recipe";
 import { db } from "../firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
+import RecipeForm from "./recipeForm";
 
 const EditRecipeModal: React.FC<EditRecipeInterface> = ({
 	ingredients,
@@ -90,56 +83,14 @@ const EditRecipeModal: React.FC<EditRecipeInterface> = ({
 						overflowY: "scroll",
 					}}
 				>
-					<Grid
-						container
-						spacing={1}
-						sx={{
-							textAlign: "center",
-							alignContent: "center",
-							justifyContent: "center",
-						}}
-					>
-						<form onSubmit={onFormSubmit}>
-							<FormGroup>
-								<Grid item>
-									<InputLabel>Title</InputLabel>
-									<TextField
-										name="title"
-										value={editRecipe?.title}
-										onChange={onFormChange}
-									/>
-									<InputLabel>Ingredients</InputLabel>
-									<TextField
-										name="ingredients"
-										multiline
-										maxRows={10}
-										value={editRecipe?.ingredients}
-										sx={{ width: "400px" }}
-										onChange={onFormChange}
-									/>
-									<InputLabel>Instructions</InputLabel>
-									<TextField
-										name="instructions"
-										multiline
-										maxRows={10}
-										sx={{ width: "400px" }}
-										value={editRecipe?.instructions}
-										onChange={onFormChange}
-									/>
-								</Grid>
-								<Grid item xs={12}>
-									<Button
-										type="submit"
-										size="large"
-										color="success"
-										variant="contained"
-									>
-										Save
-									</Button>
-								</Grid>
-							</FormGroup>
-						</form>
-					</Grid>
+					{editRecipe ? (
+						<RecipeForm
+							buttonText="Save"
+							onFormChange={onFormChange}
+							onFormSubmit={onFormSubmit}
+							recipe={editRecipe}
+						/>
+					) : null}
 				</Box>
 			</Modal>
 		</div>

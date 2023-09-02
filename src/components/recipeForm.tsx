@@ -1,8 +1,11 @@
 import { Button, FormGroup, Grid, InputLabel, TextField } from "@mui/material";
-import { CreateRecipeInterface } from "../interfaces/Recipe";
+import {
+	CreateRecipeInterface,
+	EditRecipeInterface,
+} from "../interfaces/Recipe";
 
 interface RecipeFormProps {
-	recipe: CreateRecipeInterface;
+	recipe: CreateRecipeInterface | EditRecipeInterface;
 	buttonText: string;
 	onFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 	onFormChange: (
