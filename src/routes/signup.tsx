@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UserCredentialInterface } from "../interfaces/User";
+import { UserCredentialInterface } from "../interfaces/UserCredential";
 import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
 import {
 	resetAuth,

@@ -10,7 +10,7 @@ import {
 	AuthError,
 } from "firebase/auth";
 import type { User } from "firebase/auth";
-import { UserCredentialInterface } from "../../../interfaces/User";
+import { UserCredentialInterface } from "../../../interfaces/UserCredential";
 
 export interface AuthenticationState {
 	isLoggedIn: boolean;

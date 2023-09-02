@@ -7,7 +7,7 @@ import {
 	Button,
 	Alert,
 } from "@mui/material";
-import { UserCredentialInterface } from "../interfaces/User";
+import { UserCredentialInterface } from "../interfaces/UserCredential";
 import { useEffect } from "react";
 import { useAppSelector } from "../redux/app/hooks";
 import { useNavigate } from "react-router-dom";
