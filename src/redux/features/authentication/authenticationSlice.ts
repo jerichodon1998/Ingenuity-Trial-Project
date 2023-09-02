@@ -15,6 +15,7 @@ import { UserCredentialInterface } from "../../../interfaces/UserCredential";
 export interface AuthenticationState {
 	isLoggedIn: boolean;
 	isLoading: boolean;
+	isAdmin: boolean;
 	userData: User | null | void;
 	error: AuthError | null | void | undefined;
 }
@@ -26,6 +27,7 @@ interface SuccessLogout {
 
 const initialState: AuthenticationState = {
 	isLoggedIn: false,
+	isAdmin: false,
 	isLoading: false,
 	userData: null,
 	error: null,
@@ -97,10 +99,14 @@ export const authenticationSlice = createSlice({
 			state.isLoggedIn = false;
 			state.isLoading = false;
 			state.userData = null;
+			state.isAdmin = false;
 		},
 		getCurrentUser: (state, action: PayloadAction<User | null>) => {
 			state.isLoggedIn = true;
 			state.userData = action.payload;
+		},
+		setUserAdmin: (state, action: PayloadAction<boolean>) => {
+			state.isAdmin = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -139,6 +145,7 @@ export const authenticationSlice = createSlice({
 	},
 });
 
-export const { resetAuth, getCurrentUser } = authenticationSlice.actions;
+export const { resetAuth, getCurrentUser, setUserAdmin } =
+	authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

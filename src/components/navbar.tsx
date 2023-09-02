@@ -19,10 +19,13 @@ import { useAppDispatch, useAppSelector } from "../redux/app/hooks";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
 	getCurrentUser,
+	setUserAdmin,
 	userLogout,
 } from "../redux/features/authentication/authenticationSlice";
 import NavButton from "./navButton";
 import NavDrawerItem from "./navDrawerItem";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
 const Navbar: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -104,6 +107,22 @@ const Navbar: React.FC = () => {
 			}
 		});
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (authState.isLoggedIn) {
+			const checkUserAdmin = async () => {
+				const collectionRef = collection(db, "adminUsers");
+				const myQuery = query(
+					collectionRef,
+					where("adminId", "==", authState.userData?.uid)
+				);
+				await getDocs(myQuery).then((querySnapshot) => {
+					querySnapshot.docs.length !== 0 ? dispatch(setUserAdmin(true)) : null;
+				});
+			};
+			checkUserAdmin();
+		}
+	}, [dispatch, authState.isLoggedIn, authState.userData?.uid]);
 
 	return (
 		<Box sx={{ display: "flex" }}>
