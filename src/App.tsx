@@ -8,6 +8,7 @@ import Admin from "./routes/admin";
 import Signup from "./routes/signup";
 import Login from "./routes/login";
 import HomePage from "./routes/homePage";
+import CreateRecipe from "./components/createRecipe";
 
 function App() {
 	const router = createBrowserRouter([
@@ -19,6 +20,10 @@ function App() {
 				{
 					path: "/",
 					element: <HomePage />,
+				},
+				{
+					path: "recipes/create",
+					element: <CreateRecipe />,
 				},
 				{
 					path: "recipes/:id",
