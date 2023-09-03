@@ -29,7 +29,7 @@ const Recipe: React.FC = () => {
 	const navigate = useNavigate();
 
 	const onDeleteRecipe = async (): Promise<void> => {
-		if (confirm("test")) {
+		if (confirm("Are you sure?")) {
 			const documentRef = doc(db, "recipe/" + recipe?.id);
 			try {
 				await deleteDoc(documentRef).then(() => {
