@@ -25,7 +25,7 @@ npm run dev
 
 # Tech Stack
 
-- React+Vite with Firebase
+- React+Vite+Typescript with Firebase
 
 # Admin account
 
