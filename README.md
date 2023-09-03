@@ -4,14 +4,14 @@ yarn version - 1.22.19
 
 # create .env file in the root DIR and input this:
 
-VITE_API_KEY=AIzaSyBDubLHo0AOzo3iMYf_G9lByh9F9thqSzY
-VITE_AUTH_DOMAIN=inguenity-trial.firebaseapp.com
-VITE_PROJECT_ID=inguenity-trial
-VITE_STORAGE_BUCKET=inguenity-trial.appspot.com
-VITE_MESSENGING_SENDER_ID=551720848624
-VITE_APP_ID=1:551720848624:web:ddc15e91dbb1a3d3b54635
-VITE_MEASUREMENT_ID=G-1F73ELBVV0
-VITE_TotalUserIdRef=g1Z5ZqKtNCJ2JsNUSgdi
+- VITE_API_KEY=AIzaSyBDubLHo0AOzo3iMYf_G9lByh9F9thqSzY
+- VITE_AUTH_DOMAIN=inguenity-trial.firebaseapp.com
+- VITE_PROJECT_ID=inguenity-trial
+- VITE_STORAGE_BUCKET=inguenity-trial.appspot.com
+- VITE_MESSENGING_SENDER_ID=551720848624
+- VITE_APP_ID=1:551720848624:web:ddc15e91dbb1a3d3b54635
+- VITE_MEASUREMENT_ID=G-1F73ELBVV0
+- VITE_TotalUserIdRef=g1Z5ZqKtNCJ2JsNUSgdi
 
 Install dependencies run:
 yarn add
