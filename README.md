@@ -2,7 +2,8 @@
 
 yarn version - 1.22.19
 
-create .env file in the root DIR and input this:
+# create .env file in the root DIR and input this:
+
 VITE_API_KEY=AIzaSyBDubLHo0AOzo3iMYf_G9lByh9F9thqSzY
 VITE_AUTH_DOMAIN=inguenity-trial.firebaseapp.com
 VITE_PROJECT_ID=inguenity-trial
