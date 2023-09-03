@@ -11,6 +11,8 @@ import {
 } from "firebase/auth";
 import type { User } from "firebase/auth";
 import { UserCredentialInterface } from "../../../interfaces/UserCredential";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase/firebaseConfig";
 
 export interface AuthenticationState {
 	isLoggedIn: boolean;
@@ -61,7 +63,21 @@ export const userSignup = createAsyncThunk<
 		const { email, password } = userCredential;
 		const auth = getAuth();
 		return await createUserWithEmailAndPassword(auth, email, password)
-			.then((userCredential: UserCredential): User => {
+			.then(async (userCredential: UserCredential): Promise<User> => {
+				// add count to userTotal
+				const totalUserIdRef = "g1Z5ZqKtNCJ2JsNUSgdi";
+				const documentRef = doc(db, "totalUsers/" + totalUserIdRef);
+				getDoc(documentRef).then(async (docSnapshot) => {
+					if (docSnapshot.exists()) {
+						// Document exists, you can access its data using docSnapshot.data()
+						const totalUsers = docSnapshot.data().totalUsers;
+
+						await updateDoc(documentRef, {
+							totalUsers: parseInt(totalUsers) + 1,
+						});
+					}
+				});
+
 				// Signed in
 				const user = userCredential.user;
 				return user;
