@@ -90,7 +90,7 @@ const Admin: React.FC = () => {
 		getAllRecipes();
 		getRecipeCount();
 		fetchTotalUsers();
-	}, []);
+	}, [totalUserIdRef]);
 
 	return (
 		<Box flexGrow={1} padding={{ xs: 5, sm: 5, md: 10, lg: 10 }}>
