@@ -34,7 +34,7 @@ function App() {
 					element: <User />,
 				},
 				{
-					path: "admin/:id",
+					path: "admin",
 					element: <Admin />,
 				},
 				{
