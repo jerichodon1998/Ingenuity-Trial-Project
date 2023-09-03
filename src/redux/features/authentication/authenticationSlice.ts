@@ -135,6 +135,7 @@ export const authenticationSlice = createSlice({
 				state.isLoading = false;
 				state.isLoggedIn = false;
 				state.userData = null;
+				state.isAdmin = false;
 			}
 		);
 		builder.addMatcher(
