@@ -45,8 +45,8 @@ const Admin: React.FC = () => {
 		);
 	};
 
-	const renderRecipes = (): JSX.Element => {
-		return <ListCard recipes={recipes} />;
+	const renderRecipes = (): JSX.Element | null => {
+		return authState.isAdmin ? <ListCard recipes={recipes} /> : null;
 	};
 
 	useEffect(() => {
