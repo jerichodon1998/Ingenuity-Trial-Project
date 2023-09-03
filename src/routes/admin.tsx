@@ -24,7 +24,7 @@ const Admin: React.FC = () => {
 	const [totalUsers, setTotalUsers] = useState<number>(0);
 	const [totalRecipes, setTotalRecipes] = useState<number>(0);
 	const [recipes, setRecipes] = useState<RecipeInterface[]>([]);
-	const totalUserIdRef = "g1Z5ZqKtNCJ2JsNUSgdi";
+	const totalUserIdRef = import.meta.env.VITE_TotalUserIdRef;
 
 	const renderData = (): JSX.Element | null => {
 		return authState.isAdmin ? (

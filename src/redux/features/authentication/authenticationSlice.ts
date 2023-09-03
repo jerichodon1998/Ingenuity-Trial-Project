@@ -65,7 +65,7 @@ export const userSignup = createAsyncThunk<
 		return await createUserWithEmailAndPassword(auth, email, password)
 			.then(async (userCredential: UserCredential): Promise<User> => {
 				// add count to userTotal
-				const totalUserIdRef = "g1Z5ZqKtNCJ2JsNUSgdi";
+				const totalUserIdRef = import.meta.env.VITE_TotalUserIdRef;
 				const documentRef = doc(db, "totalUsers/" + totalUserIdRef);
 				getDoc(documentRef).then(async (docSnapshot) => {
 					if (docSnapshot.exists()) {
