@@ -46,6 +46,9 @@ const Navbar: React.FC = () => {
 			<Box sx={{ display: { xs: "none", sm: "block" } }}>
 				{authState.isLoggedIn ? (
 					<>
+						{authState.isAdmin ? (
+							<NavButton linkTo={`admin`} text="Admin" />
+						) : null}
 						<NavButton
 							linkTo={`users/${authState.userData?.uid}`}
 							text="Dashboard"
@@ -76,6 +79,9 @@ const Navbar: React.FC = () => {
 				<List>
 					{authState.isLoggedIn ? (
 						<>
+							{authState.isAdmin ? (
+								<NavDrawerItem linkTo={`admin`} text="Admin" />
+							) : null}
 							<NavDrawerItem
 								linkTo={`users/${authState.userData?.uid}`}
 								text="Dashboard"
